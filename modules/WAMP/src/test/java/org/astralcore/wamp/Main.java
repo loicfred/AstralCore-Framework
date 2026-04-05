@@ -13,7 +13,10 @@ public class Main {
 
     static void main(String[] args) throws Exception {
         SpringApplication.run(Main.class, args);
+        setupWAMP();
+    }
 
+    private static void setupWAMP() throws Exception {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Access-Control-Allow-Origin", "*");
 
@@ -34,5 +37,4 @@ public class Main {
                 .registerDomain(H3);
         builder.build();
     }
-
 }
