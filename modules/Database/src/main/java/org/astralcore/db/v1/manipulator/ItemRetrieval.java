@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.astralcore.core.NumberUtils.GenerateRandomNumber;
+import static org.astralcore.core.util.NumberUtils.GenerateRandomNumber;
 
 public class ItemRetrieval {
     private final transient DatabaseManager DBM;

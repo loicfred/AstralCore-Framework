@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.astralcore.core.util.ClassUtils.getFieldValue;
 import static org.astralcore.db.v1.manipulator.ItemRetrieval.transferResultToRow;
 
 public record DatabaseManager(DatabaseType type, String url, String user, String password, boolean output)  {

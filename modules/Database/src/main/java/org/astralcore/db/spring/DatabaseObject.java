@@ -13,7 +13,7 @@ import static org.astralcore.db.spring.DatabaseService.dbService;
 import static org.astralcore.db.spring.DatabaseUtils.getTableName;
 import static org.astralcore.db.spring.DatabaseUtils.mapResultSetToObject;
 import static org.astralcore.core.json.JSONItem.GSON;
-import static org.astralcore.core.ClassUtils.*;
+import static org.astralcore.core.util.ClassUtils.*;
 
 @SuppressWarnings("all")
 public abstract class DatabaseObject<T> {

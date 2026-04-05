@@ -15,8 +15,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.astralcore.db.spring.DatabaseService.dbService;
-import static org.astralcore.json.JSONItem.GSON;
-import static org.astralcore.core.ClassUtils.*;
+import static org.astralcore.core.json.JSONItem.GSON;
+import static org.astralcore.core.util.ClassUtils.*;
 
 public class DatabaseUtils {
 

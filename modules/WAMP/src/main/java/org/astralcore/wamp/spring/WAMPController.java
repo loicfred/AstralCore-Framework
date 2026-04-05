@@ -8,7 +8,6 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 @RestController
 public class WAMPController {
