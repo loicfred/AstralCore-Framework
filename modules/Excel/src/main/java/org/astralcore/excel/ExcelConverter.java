@@ -25,16 +25,16 @@ public class ExcelConverter {
         this.connectionOutput = connectionOutput;
     }
 
-    public ExcelConverter disableDrop() {
-        withDrop = false;
+    public ExcelConverter withDrop(boolean drop) {
+        withDrop = drop;
         return this;
     }
-    public ExcelConverter disableCreate() {
-        withCreate = false;
+    public ExcelConverter withCreate(boolean create) {
+        withCreate = create;
         return this;
     }
-    public ExcelConverter disableRows() {
-        withRows = false;
+    public ExcelConverter withRows(boolean insert) {
+        withRows = insert;
         return this;
     }
 
@@ -65,7 +65,7 @@ public class ExcelConverter {
         stmt.execute(DROPSQL);
     }
 
-    public String getDataType(Sheet sheet, int column) {
+    private String getDataType(Sheet sheet, int column) {
         List<Row> Rows = new ArrayList<>();
         for (int R = 1; R < sheet.getLastRowNum(); R++) Rows.add(sheet.getRow(R));
         return Rows.stream().allMatch(R -> R.getCell(column).getCellType().equals(CellType.NUMERIC)) ? "NUMERIC" : "TEXT";

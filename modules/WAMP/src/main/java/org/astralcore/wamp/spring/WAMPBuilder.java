@@ -24,6 +24,10 @@ public class WAMPBuilder {
         domains.add(domain);
         return this;
     }
+    public WAMPBuilder registerDomains(Domain... domain) {
+        domains.addAll(List.of(domain));
+        return this;
+    }
 
     public WAMP build() throws Exception {
         return WAMPSERVER = new WAMP(domains, regenCerts);

@@ -6,8 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpHeaders;
 
-import static org.astralcore.wamp.spring.WAMPBuilder.LOCALHOST;
-
 @SpringBootApplication
 public class Main {
 
@@ -20,21 +18,19 @@ public class Main {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Access-Control-Allow-Origin", "*");
 
-        Domain H1 = new Domain(LOCALHOST, "mysite.mu").headers(headers);
-        H1.addSubdomain("accounts").headers(headers);
+        Domain H1 = new Domain(WAMPBuilder.LOCALHOST, "mysite.com").headers(headers);
+        H1.addSubdomain("www").headers(headers);
         H1.addSubdomain("admin").headers(headers);
+        H1.addSubdomain("accounts").headers(headers);
 
-        Domain H2 = new Domain(LOCALHOST, "test2.mu");
-        H2.addSubdomain("accounts");
-        H2.addSubdomain("admin");
+        Domain H2 = new Domain(WAMPBuilder.LOCALHOST, "test2.com", "C:/Website/test2/");
+        H2.addSubdomain("www", "C:/Website/test2_www/");
 
-        Domain H3 = new Domain(LOCALHOST, "maudonate.mu", "http://localhost:8080");
+        Domain H3 = new Domain(WAMPBuilder.LOCALHOST, "myothersite.com", "http://localhost:8080");
 
         WAMPBuilder builder = new WAMPBuilder()
-                .regenerateCerts()
-                .registerDomain(H1)
-                .registerDomain(H2)
-                .registerDomain(H3);
+                .registerDomains(H1, H2, H3)
+                .regenerateCerts();
         builder.build();
     }
 }

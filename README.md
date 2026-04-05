@@ -1,1 +1,310 @@
 # Astral Core
+
+A framework for built on Springboot that implements additional tools and shortcuts for development.
+It contains pre-made Spring components, beans as well as plenty of utility features.
+
+
+# 1. AI Utilities
+
+An AI dependency that provides a simple interface to interact with the LM Studio API and make chatbots.  
+It makes use of OpenAI Spring dependency.  
+
+The following example shows how to use the AI service.
+- aiService.prompt() – Prompt the AI to respond to a message.
+- aiService.chooseBetween() – Choose between multiple options.
+- aiService.startConversation() – Start a conversation with the AI.
+
+## Getting Started
+
+```java
+
+import static org.astralcore.ai.spring.AIService.aiService;
+
+@SpringBootApplication
+public class Main {
+    static void main(String[] args) {
+        SpringApplication.run(Main.class, args);
+
+        List<String> outputs = aiService.chooseBetween("Which of these fruits are red?", List.of("Apple", "Cherry", "Banana", "Orange"));
+        System.out.println(outputs); // [Apple,Cherry]
+
+        String output = aiService.prompt("Hi, how are you?");
+        System.out.println(output); // Hi, how can I help you today?
+
+        output = aiService.prompt("What is the current time?", new Toolbox());
+        System.out.println(output); // [The current time from Toolbox]
+
+        SystemMessage instruction = SystemMessage.builder().text("You are an AI assistent designed answer the time related questions of the user.").build();
+        Conversation c = aiService.startConversation("Loïc", instruction, new Toolbox());
+        System.out.println(c.talk("What is the current time?")); // The current time is XXX
+        System.out.println(c.talk("Thank you!"));
+    }
+
+    public static class Toolbox {
+        @Tool(description = "Returns the current time.")
+        public String getCurrentTime(String name) {
+            return LocalDateTime.now().toString();
+        }
+    }
+}
+```
+
+
+# 2. Database Utilities
+
+A database dependency that provides caching mechanisms and database service functions to enhance database operations in Spring applications.
+
+- **Service Functions**:
+    - `dbService.getById()` Get a single row by id and map to a class.
+    - `dbService.getByIdWithJoins()` Get a single row by id and map to a class with all join columns.
+    - `dbService.getWhere()` Get a single row by condition and map to a class.
+    - `dbService.getWhereWithJoins()` Get a single row by condition and map to a class with all join columns.
+    - `dbService.getAll()` Get many rows and map them to a class.
+    - `dbService.getAllWhere()` Get many rows by condition and map them a class.
+    - `dbService.doUpdate()` Perform an update operation.
+    - More...
+
+
+- **Object Functions**:
+    - `Write()` Insert the current object into the database.
+    - `WriteThenReturn()` Insert the current object into the database then returning it as an object.
+    - `Upsert()` Insert else update the current object into the database.
+    - `Upsert()` Insert else update the current object into the database then returning it as an object.
+    - `Update()` Updates the current object with the provided values.
+    - `UpdateOnly()` Updates only selected columns.
+    - `IncrementColumn()` Increase the value of a column by a given amount.
+    - `refetchAttribute()` Get a field value of an attribute from the database (lazy loading).
+
+
+- **Integrated Caching**: Each database operation is cached for optimal performance till an update of that object occurs.
+
+
+- **Single-query Joins**: Allowing returning an object with all their joint objects in one query.
+
+## Getting Started
+
+The first thing to do after adding the dependency is making sure caching is enabled in your spring application.
+You must also scan both your package and the package of the library.
+```java
+@EnableCaching
+@SpringBootApplication
+@ComponentScan({"my.app.spring", "my.loic.utilities.*.spring"})
+public class MyApplication {
+    static void main(String[] args) {
+        SpringApplication.run(MyApplication.class, args);
+        // Your code here...
+    }
+}
+```
+
+## Creating a Database Object class
+The `DatabaseObject<>` class is the base class for all database objects.
+They must extend either `DatabaseObject<>` or `DatabaseObject.ID_OBJ<>` which takes your object class as generics.
+The `DatabaseObject.ID_OBJ<>` class is used to provide a default ID field to your object to avoid you from declaring an ID field to all your classes.
+You must annotate your table and field using Jakarta annotations.
+
+**Option 1:** Extend `DatabaseObject<>` and annotate with Jakarta.
+```java
+import jakarta.persistence.*;
+
+@Table
+public class User extends DatabaseObject<User> {
+    @OneToMany
+    @JoinColumn(referencedColumnName = "UserID", name = "UserID")
+    private transient List<Order> orders;
+    
+    @Id
+    private Long UserID;
+    private String Name;
+}
+```
+
+
+**Option 2:** Use `DatabaseObject.ID_OBJ<>` to have an ID by default to avoid redundancy.
+```java
+import jakarta.persistence.*;
+
+@Table(name = 'user') 
+public class User extends DatabaseObject.ID_OBJ<Long, User> {
+    @OneToMany
+    @JoinColumn(referencedColumnName = "ID", name = "UserID")
+    private transient List<Order> orders;
+    
+    private String Name;
+}
+```
+## Connect to your database
+The following example shows how to connect to a database using the service.
+You must add the following properties to your `application.properties` file of springboot.
+```properties
+spring.datasource.url=DATABASE_URL
+spring.datasource.username=USERNAME
+spring.datasource.password=PASSWORD
+spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+spring.datasource.hikari.maximum-pool-size=20
+spring.datasource.hikari.minimum-idle=5
+spring.datasource.hikari.idle-timeout=30000
+spring.datasource.hikari.max-lifetime=1800000
+spring.datasource.hikari.connection-timeout=20000
+spring.datasource.hikari.pool-name=MyHikariPool
+```
+
+
+## Interact with your database
+The following example shows using the service in practice.
+Note: You must enable caching in your spring application. You must scan both your package and the package of the library.
+```java
+import static my.loic.utilities.db.spring.DatabaseService.dbService;
+
+public void interactTest() {
+   User user = dbService.getById(User.class, 3L).orElse(null);
+   user.Name = "Loic";
+   user = user.WriteThenReturn();
+
+   User loic = dbService.getWhere(User.class, "Name = ?", "Loic").orElse(null);
+   loic.Email = "loic@email.com";
+   loic.UpdateOnly("Email");
+
+   Row R = dbService.doQuery("SELECT * FROM user WHERE Email = ?", "loic@email.com").orElse(null);
+   String email = R.getAsString("Email");   
+   
+   loic.Delete();
+}
+```
+
+# 3. Discord Utilities
+
+A Discord dependency that provides a simple interface to interact with the Discord API. It makes use of JDA libraries.
+
+## 3.1. Getting Started
+
+You must use `BotBuilder` to configure the bot. You must include the bot token as well as the package when you are going to declare all your interactions (commands).
+The following example shows how to set up the bot.
+
+```java
+public void setupBot() {
+    BotBuilder BB = new BotBuilder("TOKEN", "my.discord.bot.interaction");
+    BB.setBotGuild(930718276542136400L); // A guild used by the bot.
+    BB.setLogChannel(1121096901681483807L); // A channel where bot logs will be sent in the bot guild.
+    BB.setTemporaryFilesChannel(1102661048269541406L); // A channel where bot temporary files will be sent in the bot guild.
+    BB.setAfterReadyAction(() -> {
+        // Actions done after the bot is ready.         
+    });
+    BB.build();   
+}
+```
+## 3.2. Demonstration
+
+Below is a command demonstration. This is available for all types of discord interaction (Button, StringSelect, Modal, etc...).
+The following example shows how to create a slash command with a button attached to it which displays metadata.
+```java
+package my.discord.bot.interaction;
+
+import org.astralcore.discord.core.*;
+import org.astralcore.discord.core.annotation.*;
+
+// This is a slash command /hello that has a button "Click me!" attached to it with metadata attached.
+@SlashCommand(name = "hello", description = "Says hello to the user.")
+public class SlashHello extends SlashCMD {
+    @Override
+    public void onSlash(SlashCommandInteractionEvent e) {
+        Button Btn = makeButton(ClickMe.class, e, "This is some data."); // makeButton is part of SlashCMD
+        e.reply("Hello, " + e.getUser().getAsMention() + "!").setComponents(ActionRow.of(Btn)).queue();
+    }
+}
+
+// This is the button attached to the slash command above. It responds with the metadata when clicked.
+@ButtonCommand(id = "click_me", label = "Click me!")
+public class ClickMe extends ButtonCMD {
+    @Override
+    public void onPressed(ButtonInteractionEvent e, String[] metadata) {
+        e.reply("Here's the data: " + metadata[0]).queue();
+    }
+}
+```
+
+# 4. WAMP Utilities
+
+A useful web control server that allows users to setup HTTPS and reverse proxies easily.
+
+## 3.1. Getting Started
+
+You must use `WAMPBuilder` to configure the server. You can register as many domains and subdomains as you want with their own headers and customized files path.
+
+```java
+@SpringBootApplication
+public class Main {
+
+    static void main(String[] args) throws Exception {
+        SpringApplication.run(Main.class, args);
+        setupWAMP();
+    }
+
+    private static void setupWAMP() throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Allow-Origin", "*");
+
+        Domain H1 = new Domain(WAMPBuilder.LOCALHOST, "mysite.com").headers(headers);
+        H1.addSubdomain("www").headers(headers);
+        H1.addSubdomain("admin").headers(headers);
+        H1.addSubdomain("accounts").headers(headers);
+
+        Domain H2 = new Domain(WAMPBuilder.LOCALHOST, "test2.com", "C:/Website/test2/");
+        H2.addSubdomain("www", "C:/Website/test2_www/");
+
+        Domain H3 = new Domain(WAMPBuilder.LOCALHOST, "myothersite.com", "http://localhost:8080");
+
+        WAMPBuilder builder = new WAMPBuilder()
+                .registerDomains(H1, H2, H3)
+                .regenerateCerts();
+        builder.build();
+    }
+}
+```
+
+# 5. Excel Utilities
+
+A simple library which enables users to convert excel files to database tables.
+
+```java
+import org.astralcore.excel.ExcelConverter;
+public class Main {
+
+    static void main(String[] args) throws Exception {
+        ExcelConverter EC = new ExcelConverter("input.xlsx", "jdbc:mysql://00.00.00.00:3306/myschema");
+        EC.withDrop(true); // Enable drop of tables based on sheets
+        EC.withCreate(true); // Enable creation of tables based on sheets
+        EC.withRows(true); // Enable insert of rows based on sheets
+        EC.Convert();
+    }
+}
+```
+
+
+--- 
+
+## Requirements
+
+- Java 25 or higher
+- Springboot project
+- MariaDB (Database)
+- LM Studio (AI)
+
+## Installation
+
+Add this Maven dependency to your Spring project:
+```xml
+<parent>
+    <groupId>org.astralcore.mu</groupId>
+    <artifactId>AstralCore</artifactId>
+    <version>1.0</version>
+</parent>
+```
+Available Modules:  
+```xml
+<artifactId>AI</artifactId>
+<artifactId>Database</artifactId>
+<artifactId>Discord</artifactId>
+<artifactId>WAMP</artifactId>
+<artifactId>Excel</artifactId>
+```

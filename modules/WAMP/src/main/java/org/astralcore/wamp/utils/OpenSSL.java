@@ -1,5 +1,6 @@
 package org.astralcore.wamp.utils;
 
+import net.lingala.zip4j.ZipFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -7,18 +8,17 @@ import java.io.File;
 import java.nio.file.StandardCopyOption;
 
 import static org.astralcore.core.util.FileUtils.downloadFileFromURL;
-import static org.astralcore.core.util.TerminalUtils.runCommand;
 import static org.astralcore.core.util.TerminalUtils.runCommandNoPrint;
 
 public class OpenSSL {
     private static final Logger log = LoggerFactory.getLogger(OpenSSL.class);
+    private static final String OPENSSL_DOWNLOAD = "https://raw.githubusercontent.com/loicfred/AstralCore-Framework/master/dl-packages/openssl.zip";
 
     public static boolean IsDownloaded() {
         try {
             runCommandNoPrint(OPENSSLPATH, "-help");
             return true;
         } catch (Exception e) {
-            log.error("OpenSSL installation not found: {}", e.getMessage());
             return false;
         }
     }
@@ -26,16 +26,22 @@ public class OpenSSL {
         try {
             File mkcert = new File(OPENSSLPATH);
             if (mkcert.exists()) return true;
-            log.info("Downloading OpenSSL...");
-            downloadFileFromURL("https://github.com/FiloSottile/mkcert/releases/download/v1.4.4/" + OPENSSLPATH.split("/")[3], OPENSSLPATH, StandardCopyOption.REPLACE_EXISTING);
-            if (mkcert.exists()) {
-                log.info("OpenSSL successfully downloaded.");
-                return true;
-            }
+            downloadFileFromURL(OPENSSL_DOWNLOAD, "./openssl.zip", StandardCopyOption.REPLACE_EXISTING);
+            return true;
         } catch (Exception e) {
             log.error("Failed to download OpenSSL: {}", e.getMessage());
+            return false;
         }
-        return false;
+    }
+    public static boolean Install() {
+        try (ZipFile zipFile = new ZipFile("openssl.zip")) {
+            zipFile.extractAll("./bin");
+            log.info("OpenSSL successfully installed.");
+            return new File("./openssl.zip").delete();
+        } catch (Exception e) {
+            log.error("Failed to installed OpenSSL: {}", e.getMessage());
+            return false;
+        }
     }
 
     protected static void MakeCertsSSL() {

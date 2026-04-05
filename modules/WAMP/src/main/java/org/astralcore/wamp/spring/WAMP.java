@@ -3,6 +3,7 @@ package org.astralcore.wamp.spring;
 import org.astralcore.wamp.obj.Domain;
 import org.astralcore.wamp.obj.Subdomain;
 import org.astralcore.wamp.utils.MKCert;
+import org.astralcore.wamp.utils.OpenSSL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -85,7 +86,8 @@ public class WAMP {
 
     protected WAMP(List<Domain> domains, boolean regenCerts) throws Exception {
         this.domains = domains;
-        if (!MKCert.IsDownloaded()) if (Download()) Install();
+        if (!MKCert.IsDownloaded()) if (MKCert.Download()) MKCert.Install();
+        if (!OpenSSL.IsDownloaded()) if (OpenSSL.Download()) OpenSSL.Install();
 
         if (regenCerts) {
             clearHostEntries();

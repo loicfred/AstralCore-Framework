@@ -15,13 +15,13 @@ import static org.astralcore.core.util.FileUtils.*;
 
 public class MKCert {
     private static final Logger log = LoggerFactory.getLogger(MKCert.class);
+    private static final String MKCERT_DOWNLOAD = "https://github.com/FiloSottile/mkcert/releases/download/v1.4.4/";
 
     public static boolean IsDownloaded() {
         try {
             runCommandNoPrint(MKCERTPATH, "-help");
             return true;
         } catch (Exception e) {
-            log.error("MKCert installation not found: {}", e.getMessage());
             return false;
         }
     }
@@ -29,20 +29,15 @@ public class MKCert {
         try {
             File mkcert = new File(MKCERTPATH);
             if (mkcert.exists()) return true;
-            log.info("Downloading MKCert...");
-            downloadFileFromURL("https://github.com/FiloSottile/mkcert/releases/download/v1.4.4/" + MKCERTPATH.split("/")[3], MKCERTPATH, StandardCopyOption.REPLACE_EXISTING);
-            if (mkcert.exists()) {
-                log.info("MKCert successfully downloaded.");
-                return true;
-            }
+            downloadFileFromURL(MKCERT_DOWNLOAD + MKCERTPATH.split("/")[3], MKCERTPATH, StandardCopyOption.REPLACE_EXISTING);
+            return true;
         } catch (Exception e) {
             log.error("Failed to download MKCert: {}", e.getMessage());
+            return false;
         }
-        return false;
     }
     public static boolean Install() {
         try {
-            log.info("Installing MKCert...");
             runCommandNoPrint(MKCERTPATH, "-install");
             log.info("MKCert successfully installed.");
             return true;
@@ -66,6 +61,7 @@ public class MKCert {
     public static void GenerateCertificateFor(String cmd) throws Exception {
         GenerateCertificateFor(List.of(cmd));
     }
+
 
     protected static final String MKCERTPATH = getMKCertPath();
     private static String getMKCertPath() {

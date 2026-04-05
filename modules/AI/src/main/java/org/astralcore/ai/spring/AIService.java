@@ -68,14 +68,14 @@ public class AIService {
     public Conversation startConversation() {
         return new Conversation(null, null);
     }
-    public Conversation startConversation(SystemMessage instruction) {
-        return new Conversation(null, instruction);
+    public Conversation startConversation(SystemMessage instruction, Object... toolsObjects) {
+        return new Conversation(null, instruction, toolsObjects);
     }
-    public Conversation startConversation(String username, SystemMessage instruction) {
-        return new Conversation(username, instruction);
+    public Conversation startConversation(String username, SystemMessage instruction, Object... toolsObjects) {
+        return new Conversation(username, instruction, toolsObjects);
     }
-    public void startConversation(String username, SystemMessage instruction, Consumer<Conversation> conv) {
-        conv.accept(new Conversation(username, instruction));
+    public void startConversation(String username, SystemMessage instruction, Consumer<Conversation> conv, Object... toolsObjects) {
+        conv.accept(new Conversation(username, instruction, toolsObjects));
     }
 
 

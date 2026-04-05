@@ -29,9 +29,9 @@ public class GUI {
         convertButton.addActionListener(e -> {
             try {
                 ExcelConverter converter = new ExcelConverter(excelPath.getText(), connectionString.getText());
-                if (!dropTable.isSelected()) converter.disableDrop();
-                if (!createTable.isSelected()) converter.disableCreate();
-                if (!insertRows.isSelected()) converter.disableRows();
+                if (!dropTable.isSelected()) converter.withDrop(true);
+                if (!createTable.isSelected()) converter.withCreate(true);
+                if (!insertRows.isSelected()) converter.withRows(true);
                 converter.Convert();
                 JOptionPane.showMessageDialog(frame, "Conversion completed successfully!");
             } catch (Exception ex) {
