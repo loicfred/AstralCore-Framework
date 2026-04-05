@@ -1,10 +1,11 @@
 package org.astralcore.wamp.utils;
 
-import org.astralcore.wamp.spring.WAMP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import static org.astralcore.core.util.FileUtils.*;
 public class MKCert {
     private static final Logger log = LoggerFactory.getLogger(MKCert.class);
 
-    public static boolean VerifyInstallation() {
+    public static boolean IsDownloaded() {
         try {
             runCommandNoPrint(MKCERTPATH, "-help");
             return true;
@@ -52,6 +53,7 @@ public class MKCert {
     }
 
     public static void GenerateCertificateFor(List<String> domains) throws Exception {
+        Files.createDirectories(Path.of("./WAMP/certs"));
         List<String> cmd = new ArrayList<>();
         cmd.add(0, "-cert-file");
         cmd.add(1, "./WAMP/certs/wampdomains.pem");
@@ -64,8 +66,6 @@ public class MKCert {
     public static void GenerateCertificateFor(String cmd) throws Exception {
         GenerateCertificateFor(List.of(cmd));
     }
-
-
 
     protected static final String MKCERTPATH = getMKCertPath();
     private static String getMKCertPath() {

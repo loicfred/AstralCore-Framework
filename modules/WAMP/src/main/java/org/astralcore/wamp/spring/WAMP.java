@@ -1,6 +1,5 @@
 package org.astralcore.wamp.spring;
 
-import org.astralcore.wamp.Main;
 import org.astralcore.wamp.obj.Domain;
 import org.astralcore.wamp.obj.Subdomain;
 import org.astralcore.wamp.utils.MKCert;
@@ -50,7 +49,7 @@ public class WAMP {
                 List<String> lines = Files.readAllLines(hostsPath);
                 String prefix = lines.getLast().isBlank() ? "" : "\n";
                 Files.write(hostsPath, (prefix + ip + " " + host + " " + COMMENT_TAG).getBytes(), StandardOpenOption.APPEND);
-                log.info("{} added to [C:/Windows/System32/drivers/etc/hosts]", host);
+                log.info("Host domain [{}] added to [C:/Windows/System32/drivers/etc/hosts]", host);
             }
         }
     }
@@ -63,7 +62,7 @@ public class WAMP {
         for (String host : hosts) {
             List<String> keptLines = Files.readAllLines(hostsPath).stream().filter(line -> !(line.contains(host) && line.contains(COMMENT_TAG))).collect(Collectors.toList());
             Files.write(hostsPath, keptLines, StandardOpenOption.TRUNCATE_EXISTING);
-            log.info("{} removed from [C:/Windows/System32/drivers/etc/hosts]", host);
+            log.info("Host domain [{}] removed from [C:/Windows/System32/drivers/etc/hosts]", host);
         }
     }
     public void clearHostEntries() throws IOException {
@@ -87,7 +86,7 @@ public class WAMP {
 
     protected WAMP(List<Domain> domains, boolean regenCerts) throws Exception {
         this.domains = domains;
-        if (!MKCert.VerifyInstallation()) if (Download()) Install();
+        if (!MKCert.IsDownloaded()) if (Download()) Install();
 
         if (regenCerts) {
             clearHostEntries();
