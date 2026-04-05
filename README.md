@@ -13,7 +13,6 @@ The following example shows how to use the AI service.
 - aiService.prompt() – Prompt the AI to respond to a message.
 - aiService.chooseBetween() – Choose between multiple options.
 - aiService.startConversation() – Start a conversation with the AI.
-
 ```java
 import static org.astralcore.ai.spring.AIService.aiService;
 
@@ -164,14 +163,11 @@ These are the service functions used to fetch and update items.
     - More...
 
 # 3. Discord Utilities
-
 A Discord dependency that provides a simple interface to interact with the Discord API. It makes use of JDA libraries.
 
 ## 3.1. Getting Started
-
-You must use `BotBuilder` to configure the bot. You must include the bot token as well as the package when you are going to declare all your interactions (commands).
+You must use `BotBuilder` to configure the bot. You must include the bot token as well as the package when you are going to declare all your interactions (commands).  
 The following example shows how to set up the bot.
-
 ```java
 public void setupBot() {
     BotBuilder BB = new BotBuilder("TOKEN", "my.discord.bot.interaction");
@@ -185,7 +181,6 @@ public void setupBot() {
 }
 ```
 ## 3.2. Demonstration
-
 Below is a command demonstration. This is available for all types of discord interaction (Button, StringSelect, Modal, etc...).
 The following example shows how to create a slash command with a button attached to it which displays metadata.
 ```java
@@ -215,13 +210,10 @@ public class ClickMe extends ButtonCMD {
 ```
 
 # 4. WAMP Utilities
-
 A useful web control server that allows users to setup local HTTPS and reverse proxies easily.
 
 ## 4.1. Getting Started
-
 You must use `WAMPBuilder` to configure the server. You can register as many domains and subdomains as you want with their own headers and customized files path.
-
 ```java
 @SpringBootApplication
 public class Main {
@@ -259,9 +251,7 @@ The url `http://localhost:8080` is another spring web application which can use 
 <img width="600" alt="image" src="https://github.com/user-attachments/assets/b4bd2b06-fb33-49d4-ad9c-0e95069c024d" />
 
 # 5. Excel Utilities
-
 A simple library which enables users to convert excel files to database tables.
-
 ```java
 import org.astralcore.excel.ExcelConverter;
 public class Main {
@@ -276,9 +266,7 @@ public class Main {
 }
 ```
 
-
 --- 
-
 
 ## Requirements
 - Java 25 or higher
