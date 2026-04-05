@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -96,13 +95,13 @@ public class WAMP {
         List<String> trueHosts = getAbsoluteHosts();
         for (Domain domain : getDomains()) {
             if (trueHosts.contains(domain.getName())) {
-                if (!domain.getPath().startsWith("http")) new File(domain.getPath()).mkdirs();
+                if (!domain.getPath().startsWith("http")) Files.createDirectories(Path.of(domain.getPath()));
                 log.info("Loaded domain: {}", domain.getName());
             } else log.error("Failed to load domain: {}", domain.getName());
 
             for (Subdomain sub : domain.getSubdomains()) {
                 if (trueHosts.contains(sub.getHost())) {
-                    if (!sub.getPath().startsWith("http")) new File(sub.getPath()).mkdirs();
+                    if (!sub.getPath().startsWith("http")) Files.createDirectories(Path.of(sub.getPath()));
                     log.info("└ Loaded subdomain: {}", sub.getHost());
                 } else log.error("└ Failed to load subdomain: {}", sub.getHost());
             }
