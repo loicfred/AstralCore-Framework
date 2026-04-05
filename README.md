@@ -225,9 +225,9 @@ public class ClickMe extends ButtonCMD {
 
 # 4. WAMP Utilities
 
-A useful web control server that allows users to setup HTTPS and reverse proxies easily.
+A useful web control server that allows users to setup local HTTPS and reverse proxies easily.
 
-## 3.1. Getting Started
+## 4.1. Getting Started
 
 You must use `WAMPBuilder` to configure the server. You can register as many domains and subdomains as you want with their own headers and customized files path.
 
@@ -262,6 +262,11 @@ public class Main {
 }
 ```
 
+The default path of files are stored the root ./WAMP/domains. The root domain files (ex. `mysite.com`) are stored in "mysite.com/_" and subdomains files (ex. `www.mysite.com`) are stored in "mysite.com/_www".  
+The url `http://localhost:8080` is another spring web application which can use the domain `myothersite.com` for free local HTTPS access.
+
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/b4bd2b06-fb33-49d4-ad9c-0e95069c024d" />
+
 # 5. Excel Utilities
 
 A simple library which enables users to convert excel files to database tables.
@@ -282,6 +287,7 @@ public class Main {
 
 
 --- 
+
 
 ## Requirements
 
