@@ -5,19 +5,16 @@ It contains pre-made Spring components, beans as well as plenty of utility featu
 
 
 # 1. AI Utilities
-
 An AI dependency that provides a simple interface to interact with the LM Studio API and make chatbots.  
 It makes use of OpenAI Spring dependency.  
 
+## 1.1. Getting Started
 The following example shows how to use the AI service.
 - aiService.prompt() – Prompt the AI to respond to a message.
 - aiService.chooseBetween() – Choose between multiple options.
 - aiService.startConversation() – Start a conversation with the AI.
 
-## Getting Started
-
 ```java
-
 import static org.astralcore.ai.spring.AIService.aiService;
 
 @SpringBootApplication
@@ -49,40 +46,13 @@ public class Main {
 }
 ```
 
-
 # 2. Database Utilities
-
 A database dependency that provides caching mechanisms and database service functions to enhance database operations in Spring applications.
 
-- **Service Functions**:
-    - `dbService.getById()` Get a single row by id and map to a class.
-    - `dbService.getByIdWithJoins()` Get a single row by id and map to a class with all join columns.
-    - `dbService.getWhere()` Get a single row by condition and map to a class.
-    - `dbService.getWhereWithJoins()` Get a single row by condition and map to a class with all join columns.
-    - `dbService.getAll()` Get many rows and map them to a class.
-    - `dbService.getAllWhere()` Get many rows by condition and map them a class.
-    - `dbService.doUpdate()` Perform an update operation.
-    - More...
-
-
-- **Object Functions**:
-    - `Write()` Insert the current object into the database.
-    - `WriteThenReturn()` Insert the current object into the database then returning it as an object.
-    - `Upsert()` Insert else update the current object into the database.
-    - `Upsert()` Insert else update the current object into the database then returning it as an object.
-    - `Update()` Updates the current object with the provided values.
-    - `UpdateOnly()` Updates only selected columns.
-    - `IncrementColumn()` Increase the value of a column by a given amount.
-    - `refetchAttribute()` Get a field value of an attribute from the database (lazy loading).
-
-
 - **Integrated Caching**: Each database operation is cached for optimal performance till an update of that object occurs.
-
-
 - **Single-query Joins**: Allowing returning an object with all their joint objects in one query.
 
-## Getting Started
-
+## 2.1. Getting Started
 The first thing to do after adding the dependency is making sure caching is enabled in your spring application.
 You must also scan both your package and the package of the library.
 ```java
@@ -97,7 +67,7 @@ public class MyApplication {
 }
 ```
 
-## Creating a Database Object class
+## 2.2. Creating a Database Object class
 The `DatabaseObject<>` class is the base class for all database objects.
 They must extend either `DatabaseObject<>` or `DatabaseObject.ID_OBJ<>` which takes your object class as generics.
 The `DatabaseObject.ID_OBJ<>` class is used to provide a default ID field to your object to avoid you from declaring an ID field to all your classes.
@@ -119,7 +89,6 @@ public class User extends DatabaseObject<User> {
 }
 ```
 
-
 **Option 2:** Use `DatabaseObject.ID_OBJ<>` to have an ID by default to avoid redundancy.
 ```java
 import jakarta.persistence.*;
@@ -133,7 +102,19 @@ public class User extends DatabaseObject.ID_OBJ<Long, User> {
     private String Name;
 }
 ```
-## Connect to your database
+
+The `DatabaseObject` provides various utility functions to interact with the object.
+- **Object Functions**:
+    - `Write()` Insert the current object into the database.
+    - `WriteThenReturn()` Insert the current object into the database then returning it as an object.
+    - `Upsert()` Insert else update the current object into the database.
+    - `Upsert()` Insert else update the current object into the database then returning it as an object.
+    - `Update()` Updates the current object with the provided values.
+    - `UpdateOnly()` Updates only selected columns.
+    - `IncrementColumn()` Increase the value of a column by a given amount.
+    - `refetchAttribute()` Get a field value of an attribute from the database (lazy loading).
+
+## 2.3. Connect to your database
 The following example shows how to connect to a database using the service.
 You must add the following properties to your `application.properties` file of springboot.
 ```properties
@@ -149,8 +130,7 @@ spring.datasource.hikari.connection-timeout=20000
 spring.datasource.hikari.pool-name=MyHikariPool
 ```
 
-
-## Interact with your database
+## 2.4. Interact with your database
 The following example shows using the service in practice.
 Note: You must enable caching in your spring application. You must scan both your package and the package of the library.
 ```java
@@ -171,6 +151,17 @@ public void interactTest() {
    loic.Delete();
 }
 ```
+
+These are the service functions used to fetch and update items.
+- **Service Functions**:
+    - `dbService.getById()` Get a single row by id and map to a class.
+    - `dbService.getByIdWithJoins()` Get a single row by id and map to a class with all join columns.
+    - `dbService.getWhere()` Get a single row by condition and map to a class.
+    - `dbService.getWhereWithJoins()` Get a single row by condition and map to a class with all join columns.
+    - `dbService.getAll()` Get many rows and map them to a class.
+    - `dbService.getAllWhere()` Get many rows by condition and map them a class.
+    - `dbService.doUpdate()` Perform an update operation.
+    - More...
 
 # 3. Discord Utilities
 
@@ -290,15 +281,14 @@ public class Main {
 
 
 ## Requirements
-
 - Java 25 or higher
 - Springboot project
 - MariaDB (Database)
 - LM Studio (AI)
 
 ## Installation
-
 Add this Maven dependency to your Spring project:
+
 ```xml
 <parent>
     <groupId>org.astralcore.mu</groupId>
