@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>org.astralcore.mu</groupId>
-    <artifactId>AstralCore-Framework</artifactId>
+    <artifactId>AstralCore</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
     <modules>
@@ -53,6 +53,21 @@
             <dependency>
                 <groupId>org.astralcore.mu</groupId>
                 <artifactId>core</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.astralcore.mu</groupId>
+                <artifactId>Database</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.astralcore.mu</groupId>
+                <artifactId>AI</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.astralcore.mu</groupId>
+                <artifactId>WAMP</artifactId>
                 <version>1.0</version>
             </dependency>
 
