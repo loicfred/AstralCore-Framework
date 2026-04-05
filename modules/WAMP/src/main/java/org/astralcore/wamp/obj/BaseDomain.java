@@ -3,7 +3,7 @@ package org.astralcore.wamp.obj;
 import org.springframework.http.HttpHeaders;
 
 public abstract class BaseDomain {
-    protected transient HttpHeaders Headers;
+    protected transient HttpHeaders Headers = new HttpHeaders();
     private final String IP;
     private final String Name;
     private final String Path;
