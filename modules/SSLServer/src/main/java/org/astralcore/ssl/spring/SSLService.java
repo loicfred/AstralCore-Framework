@@ -1,9 +1,9 @@
-package org.astralcore.wamp.spring;
+package org.astralcore.ssl.spring;
 
-import org.astralcore.wamp.obj.Domain;
-import org.astralcore.wamp.obj.Subdomain;
-import org.astralcore.wamp.utils.MKCert;
-import org.astralcore.wamp.utils.OpenSSL;
+import org.astralcore.ssl.obj.Domain;
+import org.astralcore.ssl.obj.Subdomain;
+import org.astralcore.ssl.utils.MKCert;
+import org.astralcore.ssl.utils.OpenSSL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -18,11 +18,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static org.astralcore.wamp.utils.MKCert.Download;
-import static org.astralcore.wamp.utils.MKCert.Install;
-
-public class WAMP {
-    private static final Logger log = LoggerFactory.getLogger(WAMP.class);
+public class SSLService {
+    private static final Logger log = LoggerFactory.getLogger(SSLService.class);
 
     private final String COMMENT_TAG = "# Added by MyLoicUtilities-WAMP";
     private final List<Domain> domains;
@@ -84,7 +81,7 @@ public class WAMP {
         return HttpHeaders != null ? org.springframework.http.HttpHeaders.copyOf(HttpHeaders) : null;
     }
 
-    protected WAMP(List<Domain> domains, boolean regenCerts) throws Exception {
+    protected SSLService(List<Domain> domains, boolean regenCerts) throws Exception {
         this.domains = domains;
         if (!MKCert.IsDownloaded()) if (MKCert.Download()) MKCert.Install();
         if (!OpenSSL.IsDownloaded()) if (OpenSSL.Download()) OpenSSL.Install();

@@ -21,8 +21,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.astralcore.db.spring.DatabaseUtils.*;
 import static org.astralcore.core.util.ClassUtils.*;
+import static org.astralcore.db.spring.DatabaseUtils.*;
 
 @Service
 @SuppressWarnings("all")

@@ -19,7 +19,7 @@
         <module>modules/AI</module>
         <module>modules/Discord</module>
         <module>modules/Excel</module>
-        <module>modules/WAMP</module>
+        <module>modules/SSLServer</module>
     </modules>
 
     <repositories>
@@ -67,7 +67,7 @@
             </dependency>
             <dependency>
                 <groupId>org.astralcore.mu</groupId>
-                <artifactId>WAMP</artifactId>
+                <artifactId>SSLServer</artifactId>
                 <version>1.0</version>
             </dependency>
 

@@ -209,35 +209,35 @@ public class ClickMe extends ButtonCMD {
 }
 ```
 
-# 4. WAMP Utilities
+# 4. SSL Server Utilities
 A useful web control server that allows users to setup local HTTPS and reverse proxies easily.
 
 ## 4.1. Getting Started
-You must use `WAMPBuilder` to configure the server. You can register as many domains and subdomains as you want with their own headers and customized files path.
+You must use `SSLBuilder` to configure the server. You can register as many domains and subdomains as you want with their own headers and customized files path.
 ```java
 @SpringBootApplication
 public class Main {
 
     static void main(String[] args) throws Exception {
         SpringApplication.run(Main.class, args);
-        setupWAMP();
+        setupProxy();
     }
 
-    private static void setupWAMP() throws Exception {
+    private static void setupProxy() throws Exception {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Access-Control-Allow-Origin", "*");
 
-        Domain H1 = new Domain(WAMPBuilder.LOCALHOST, "mysite.com").headers(headers);
+        Domain H1 = new Domain(SSLBuilder.LOCALHOST, "mysite.com").headers(headers);
         H1.addSubdomain("www").headers(headers);
         H1.addSubdomain("admin").headers(headers);
         H1.addSubdomain("accounts").headers(headers);
 
-        Domain H2 = new Domain(WAMPBuilder.LOCALHOST, "test2.com", "C:/Website/test2/");
+        Domain H2 = new Domain(SSLBuilder.LOCALHOST, "test2.com", "C:/Website/test2/");
         H2.addSubdomain("www", "C:/Website/test2_www/");
 
-        Domain H3 = new Domain(WAMPBuilder.LOCALHOST, "myothersite.com", "http://localhost:8080");
+        Domain H3 = new Domain(SSLBuilder.LOCALHOST, "myothersite.com", "http://localhost:8080");
 
-        WAMPBuilder builder = new WAMPBuilder()
+        SSLBuilder builder = new SSLBuilder()
                 .registerDomains(H1, H2, H3)
                 .regenerateCerts();
         builder.build();

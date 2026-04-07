@@ -68,7 +68,7 @@ public class AIService {
     public Conversation startConversation() {
         return new Conversation(null, null);
     }
-    public Conversation startConversation(SystemMessage instruction, Object... toolsObjects) {
+    public org.astralcore.ai.spring.Conversation startConversation(SystemMessage instruction, Object... toolsObjects) {
         return new Conversation(null, instruction, toolsObjects);
     }
     public Conversation startConversation(String username, SystemMessage instruction, Object... toolsObjects) {

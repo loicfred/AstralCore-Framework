@@ -1,4 +1,4 @@
-package org.astralcore.wamp.utils;
+package org.astralcore.ssl.utils;
 
 import net.lingala.zip4j.ZipFile;
 import org.slf4j.Logger;

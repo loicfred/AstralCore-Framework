@@ -1,4 +1,4 @@
 package org.astralcore.discord;
 
-public class Main {
+public class Discord_Main {
 }

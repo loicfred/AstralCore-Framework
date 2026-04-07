@@ -10,7 +10,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>WAMP</artifactId>
+    <artifactId>SSLServer</artifactId>
 
     <dependencies>
         <dependency>

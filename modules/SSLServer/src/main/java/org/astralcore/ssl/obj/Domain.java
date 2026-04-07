@@ -1,4 +1,4 @@
-package org.astralcore.wamp.obj;
+package org.astralcore.ssl.obj;
 
 import org.springframework.http.HttpHeaders;
 

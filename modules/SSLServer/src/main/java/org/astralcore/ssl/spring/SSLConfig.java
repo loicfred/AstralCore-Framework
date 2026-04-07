@@ -1,6 +1,6 @@
-package org.astralcore.wamp.spring;
+package org.astralcore.ssl.spring;
 
-import org.astralcore.wamp.utils.MKCert;
+import org.astralcore.ssl.utils.MKCert;
 import org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.Ssl;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import java.io.File;
 
 @Configuration
-public class WAMPConfig {
+public class SSLConfig {
 
     @Bean
     public TomcatServletWebServerFactory servletContainer() throws Exception {

@@ -1,4 +1,4 @@
-package org.astralcore.wamp.spring;
+package org.astralcore.ssl.spring;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.jspecify.annotations.NonNull;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.nio.file.Paths;
 
 @RestController
-public class WAMPController {
-    protected static WAMP WAMPSERVER;
+public class SSLController {
+    protected static SSLService WAMPSERVER;
 
     @GetMapping("/**")
     public ResponseEntity<Resource> serve(HttpServletRequest request, @RequestHeader("Host") String host) throws Exception {
