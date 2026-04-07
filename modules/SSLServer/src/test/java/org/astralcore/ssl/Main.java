@@ -30,7 +30,8 @@ public class Main {
 
         SSLBuilder builder = new SSLBuilder()
                 .registerDomains(H1, H2, H3)
-                .regenerateCerts();
+                //.regenerateCerts()
+        ;
         builder.build();
     }
 }

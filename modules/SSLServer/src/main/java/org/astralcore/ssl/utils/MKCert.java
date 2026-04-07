@@ -59,6 +59,7 @@ public class MKCert {
         OpenSSL.MakeCertsSSL();
     }
     public static void GenerateCertificateFor(String cmd) throws Exception {
+        if (!MKCert.IsDownloaded()) if (MKCert.Download()) MKCert.Install();
         GenerateCertificateFor(List.of(cmd));
     }
 

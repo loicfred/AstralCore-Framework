@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="AI" />
+        <module name="Database" />
+        <module name="core" />
+        <module name="Discord" />
+        <module name="Excel" />
+        <module name="SSLServer" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="AstralCore-Framework" target="25" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="AI" options="-parameters" />
+      <module name="AstralCore" options="-parameters" />
+      <module name="Database" options="-parameters" />
+      <module name="Discord" options="-parameters" />
+      <module name="Excel" options="-parameters" />
+      <module name="SSLServer" options="-parameters" />
+      <module name="core" options="-parameters" />
+    </option>
+  </component>
+</project>

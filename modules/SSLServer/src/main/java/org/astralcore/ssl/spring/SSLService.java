@@ -83,9 +83,6 @@ public class SSLService {
 
     protected SSLService(List<Domain> domains, boolean regenCerts) throws Exception {
         this.domains = domains;
-        if (!MKCert.IsDownloaded()) if (MKCert.Download()) MKCert.Install();
-        if (!OpenSSL.IsDownloaded()) if (OpenSSL.Download()) OpenSSL.Install();
-
         if (regenCerts) {
             clearHostEntries();
             for (Domain dom : domains) addHostEntry(dom.getIP(), dom.getHosts());

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/modules/AI/AI.iml" filepath="$PROJECT_DIR$/modules/AI/AI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/Discord/Discord.iml" filepath="$PROJECT_DIR$/modules/Discord/Discord.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/Excel/Excel.iml" filepath="$PROJECT_DIR$/modules/Excel/Excel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/WAMP/SSLServer.iml" filepath="$PROJECT_DIR$/modules/WAMP/SSLServer.iml" />
+    </modules>
+  </component>
+</project>

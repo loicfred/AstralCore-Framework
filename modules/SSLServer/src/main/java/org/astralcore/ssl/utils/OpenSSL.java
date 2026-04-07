@@ -46,6 +46,7 @@ public class OpenSSL {
 
     protected static void MakeCertsSSL() {
         try {
+            if (!OpenSSL.IsDownloaded()) if (OpenSSL.Download()) OpenSSL.Install();
             runCommandNoPrint(
                     OPENSSLPATH, "pkcs12", "-export",
                     "-in", "./WAMP/certs/wampdomains.pem",
