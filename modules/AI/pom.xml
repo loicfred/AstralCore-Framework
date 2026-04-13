@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.astralcore.mu</groupId>
-        <artifactId>AstralCore</artifactId>
+        <groupId>org.solarframework.mu</groupId>
+        <artifactId>SolarFramework</artifactId>
         <version>1.0</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
@@ -30,7 +30,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.astralcore.mu</groupId>
+            <groupId>org.solarframework.mu</groupId>
             <artifactId>core</artifactId>
         </dependency>
         <dependency>

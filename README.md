@@ -14,7 +14,7 @@ The following example shows how to use the AI service.
 - aiService.chooseBetween() – Choose between multiple options.
 - aiService.startConversation() – Start a conversation with the AI.
 ```java
-import static org.astralcore.ai.spring.AIService.aiService;
+import static org.solarframework.ai.spring.AIService.aiService;
 
 @SpringBootApplication
 public class Main {
@@ -186,8 +186,8 @@ The following example shows how to create a slash command with a button attached
 ```java
 package my.discord.bot.interaction;
 
-import org.astralcore.discord.core.*;
-import org.astralcore.discord.core.annotation.*;
+import org.solarframework.discord.core.*;
+import org.solarframework.discord.core.annotation.*;
 
 // This is a slash command /hello that has a button "Click me!" attached to it with metadata attached.
 @SlashCommand(name = "hello", description = "Says hello to the user.")
@@ -253,7 +253,7 @@ The url `http://localhost:8080` is another spring web application which can use 
 # 5. Excel Utilities
 A simple library which enables users to convert excel files to database tables.
 ```java
-import org.astralcore.excel.ExcelConverter;
+import org.solarframework.excel.ExcelConverter;
 public class Main {
 
     static void main(String[] args) throws Exception {
@@ -279,8 +279,8 @@ Add this Maven dependency to your Spring project:
 
 ```xml
 <parent>
-    <groupId>org.astralcore.mu</groupId>
-    <artifactId>AstralCore</artifactId>
+    <groupId>org.solarframework.mu</groupId>
+    <artifactId>SolarFramework</artifactId>
     <version>1.0</version>
 </parent>
 ```

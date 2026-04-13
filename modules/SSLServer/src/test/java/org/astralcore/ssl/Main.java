@@ -1,7 +1,7 @@
-package org.astralcore.ssl;
+package org.solarframework.ssl;
 
-import org.astralcore.ssl.spring.SSLBuilder;
-import org.astralcore.ssl.obj.Domain;
+import org.solarframework.ssl.spring.SSLBuilder;
+import org.solarframework.ssl.obj.Domain;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpHeaders;

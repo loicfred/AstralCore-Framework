@@ -1,4 +1,4 @@
-package org.astralcore.discord;
+package org.solarframework.discord;
 
 public class Discord_Main {
 }

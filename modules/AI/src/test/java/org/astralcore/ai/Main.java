@@ -1,6 +1,6 @@
-package org.astralcore.ai;
+package org.solarframework.ai;
 
-import org.astralcore.ai.spring.Conversation;
+import org.solarframework.ai.spring.Conversation;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.boot.SpringApplication;
@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.astralcore.ai.spring.AIService.aiService;
+import static org.solarframework.ai.spring.AIService.aiService;
 
 @SpringBootApplication
 public class Main {

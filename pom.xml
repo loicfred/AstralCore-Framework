@@ -9,8 +9,8 @@
         <version>4.1.0-M3</version>
     </parent>
 
-    <groupId>org.astralcore.mu</groupId>
-    <artifactId>AstralCore</artifactId>
+    <groupId>org.solarframework.mu</groupId>
+    <artifactId>SolarFramework</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
     <modules>
@@ -51,22 +51,22 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.astralcore.mu</groupId>
+                <groupId>org.solarframework.mu</groupId>
                 <artifactId>core</artifactId>
                 <version>1.0</version>
             </dependency>
             <dependency>
-                <groupId>org.astralcore.mu</groupId>
+                <groupId>org.solarframework.mu</groupId>
                 <artifactId>Database</artifactId>
                 <version>1.0</version>
             </dependency>
             <dependency>
-                <groupId>org.astralcore.mu</groupId>
+                <groupId>org.solarframework.mu</groupId>
                 <artifactId>AI</artifactId>
                 <version>1.0</version>
             </dependency>
             <dependency>
-                <groupId>org.astralcore.mu</groupId>
+                <groupId>org.solarframework.mu</groupId>
                 <artifactId>SSLServer</artifactId>
                 <version>1.0</version>
             </dependency>
